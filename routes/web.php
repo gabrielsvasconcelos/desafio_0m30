@@ -69,3 +69,26 @@ Route::get('/paciente/{id_paciente}', function($id_paciente){
     echo "</div>";
 });
 
+Route::get('/editar_paciente/{id_paciente}', function ($id_paciente) {
+    $paciente = Paciente::findOrFail($id_paciente);
+    return view('/editar_paciente', ['paciente' => $paciente]);
+});
+
+Route::put('/atualizar_paciente/{id_paciente}', function (Request $informacoes, $id_paciente) {
+    $paciente = Paciente::findOrFail($id_paciente);
+    $paciente->foto_paciente = $informacoes->foto_paciente;
+    $paciente->nome = $informacoes->nome;
+    $paciente->nome_mae = $informacoes->nome_mae; 
+    $paciente->data_nascimento = $informacoes->data_nascimento;
+    $paciente->cpf = $informacoes->cpf; 
+    $paciente->cns = $informacoes->cns;
+    $paciente->endereco = $informacoes->endereco; 
+    $paciente->cep = $informacoes->cep;
+    $paciente->numero = $informacoes->numero;
+    $paciente->complemento = $informacoes->complemento;
+    $paciente->bairro = $informacoes->bairro;
+    $paciente->cidade = $informacoes->cidade; 
+    $paciente->estado = $informacoes->estado;
+    $paciente->save();
+    echo "Dados do paciente atulizado com sucesso!";
+});
