@@ -92,3 +92,8 @@ Route::put('/atualizar_paciente/{id_paciente}', function (Request $informacoes, 
     $paciente->save();
     echo "Dados do paciente atulizado com sucesso!";
 });
+
+Route::get('/pacientes', function () {
+    $pacientes = Paciente::all();
+    return view('/lista_pacientes', ['pacientes' => $pacientes]);
+});
