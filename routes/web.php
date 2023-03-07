@@ -35,7 +35,7 @@ Route::post('/cadastro', function(Request $dados_cadastro){
         "cidade" =>$dados_cadastro->cidade, 
         "estado" =>$dados_cadastro->estado
     ]);
-    echo 'Paciente cadastrado com sucesso!';
+    echo "<p style='text-align:center;'>Paciente cadastrado com sucesso!</p>";
 });
 
 Route::get('/paciente/{id_paciente}', function($id_paciente){
@@ -90,10 +90,16 @@ Route::put('/atualizar_paciente/{id_paciente}', function (Request $informacoes, 
     $paciente->cidade = $informacoes->cidade; 
     $paciente->estado = $informacoes->estado;
     $paciente->save();
-    echo "Dados do paciente atulizado com sucesso!";
+    echo "<p style='text-align:center;'>Dados do paciente atulizado com sucesso!</p>";
 });
 
 Route::get('/pacientes', function () {
     $pacientes = Paciente::all();
     return view('/lista_pacientes', ['pacientes' => $pacientes]);
+});
+
+Route::get('/excluir_paciente/{id_paciente}', function($id_paciente){
+    $paciente = Paciente::findOrFail($id_paciente);
+    $paciente->delete();
+    echo "<p style='text-align:center;'>Paciente excluido com sucesso!</p>";
 });
